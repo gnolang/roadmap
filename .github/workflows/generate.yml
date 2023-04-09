@@ -1,0 +1,34 @@
+name: generate
+
+on:
+  push:
+  # TODO: on new issues?
+  # TODO: schedule: - cron: "21 */2 * * *"
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - uses: actions/setup-go@v4
+      - run: cd misc/deps; make install
+
+      - run: make fetch
+      - run: make gen-json
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file_pattern: 'roadmap.json'
+          commit_message: "build: generate"
+          branch: generate
+          create_branch: true
+          commit_user_name: gnobot
+          commit_user_email: actions@github.com
+          commit_author: gnobot 🤖 <actions@github.com>

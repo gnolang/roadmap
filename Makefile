@@ -1,8 +1,14 @@
-build:
-	docker build -t depviz .
+all: install fetch gen-json gen-image
+
+install:
+	cd misc/deps; make install
 
 fetch:
-	docker run -it -v "$(PWD):$(PWD)" -w "$(PWD)/output" depviz -store-path=db fetch -github-token=${GITHUB_TOKEN} gnolang/roadmap
+	depviz fetch -github-token=${GITHUB_TOKEN} gnolang/roadmap
 
-generate:
-	docker run -it -v "$(PWD):$(PWD)" -w "$(PWD)/output" depviz -store-path=db gen json gnolang/roadmap > roadmap.json
+gen-json:
+	depviz gen json gnolang/roadmap > roadmap.json
+
+gen-image:
+	@echo "TODO"
+	@exit 1

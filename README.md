@@ -1,9 +1,3 @@
-# roadmap
+# Gno roadmap
 
-## Usage
-
-```bash
-make build
-make fetch # GITHUB_TOKEN="${GITHUB_TOKEN}" if not exported
-make generate # this generate a roadmap.json inside the output directory
-```
+The repository includes milestone issues and steps that serve as a roadmap, as well as scripts for generating various outputs.
