@@ -25,7 +25,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           commit_message: "build: generate"
-          branch: main
+          branch: generate
           commit_user_name: gnobot
           commit_user_email: actions@github.com
           commit_author: gnobot 🤖 <actions@github.com>
