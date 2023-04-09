@@ -26,6 +26,7 @@ jobs:
         with:
           commit_message: "build: generate"
           branch: generate
+          create_branch: true
           commit_user_name: gnobot
           commit_user_email: actions@github.com
           commit_author: gnobot 🤖 <actions@github.com>
