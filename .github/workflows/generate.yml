@@ -3,16 +3,13 @@ name: generate
 on:
   push:
   # TODO: on new issues?
-  #schedule:
-  #  - cron: "21 */2 * * *"
+  # TODO: schedule: - cron: "21 */2 * * *"
 
 jobs:
   generate:
     runs-on: ubuntu-latest
     permissions:
-      # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
       contents: write
-
 
     steps:
       - uses: actions/checkout@v3
@@ -22,12 +19,13 @@ jobs:
       - run: cd misc/deps; make install
 
       - run: make fetch
-      - run: make generate
+      - run: make gen-json
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          file_pattern: 'roadmap.json'
           commit_message: "build: generate"
           branch: generate
           create_branch: true
