@@ -14,13 +14,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
-      - uses: docker/setup-buildx-action@v2
-      - uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: ./Dockerfile
-          push: false
-          tags: depviz
+      - uses: actions/setup-go@v4
+      - run: cd misc/deps; make install
 
       - run: make fetch
       - run: make generate

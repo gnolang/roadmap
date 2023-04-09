@@ -1,9 +1,3 @@
-# roadmap
+# Gno roadmap
 
-## Usage
-
-```bash
-make build    # requires Docker
-make fetch    # requires $GITHUB_TOKEN
-make generate # generates a roadmap.json
-```
+The repository includes milestone issues and steps that serve as a roadmap, as well as scripts for generating various outputs.
