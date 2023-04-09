@@ -1,4 +1,4 @@
-module github.com/gnolang/roadmap/misc/deps
+module github.com/gnolang/roadmap
 
 go 1.20
 
