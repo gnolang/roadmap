@@ -1,0 +1,31 @@
+name: generate
+
+on:
+  push:
+  # TODO: on new issues?
+  #schedule:
+  #  - cron: "21 */2 * * *"
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - uses: docker/setup-buildx-action@v2
+
+      - run: make build
+      - run: make fetch
+      - run: make generate
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          commit_message: "build: generate"
+          branch: main
+          commit_user_name: gnobot
+          commit_user_email: actions@github.com
+          commit_author: gnobot 🤖 <actions@github.com>
