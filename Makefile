@@ -12,3 +12,4 @@ gen-json:
 gen-image:
 	go run ./gen-graph > roadmap.dot
 	dot -Tpng roadmap.dot > roadmap.png
+	dot -Tsvg roadmap.dot > roadmap.svg
