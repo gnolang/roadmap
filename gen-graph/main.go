@@ -32,7 +32,7 @@ type task struct {
 }
 
 func main() {
-	file, err := ioutil.ReadFile("roadmap.json")
+	file, err := ioutil.ReadFile("output/roadmap.json")
 	checkErr(err)
 	var tasks []task
 	err = json.Unmarshal(file, &tasks)
