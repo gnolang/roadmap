@@ -34,7 +34,7 @@ jobs:
           file_pattern: 'output/*'
           commit_message: "build: generate"
           branch: generate
-	  push_options: '--force'
+          push_options: '--force'
           create_branch: true
           commit_user_name: gnobot
           commit_user_email: actions@github.com
