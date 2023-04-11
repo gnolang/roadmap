@@ -10,5 +10,5 @@ gen-json:
 	depviz gen json gnolang/roadmap > roadmap.json
 
 gen-image:
-	@echo "TODO"
-	@exit 1
+	go run ./gen-graph > roadmap.dot
+	dot -Tpng roadmap.dot > roadmap.png
