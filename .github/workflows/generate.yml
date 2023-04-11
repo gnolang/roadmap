@@ -16,18 +16,26 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
       - uses: actions/setup-go@v4
+      - uses: ts-graphviz/setup-graphviz@v1
       - run: cd misc/deps; make install
+      - run: go install -v ./gen-graph
 
       - run: make fetch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: make gen-json
+      - run: make gen-image
 
+      - run: git rm -f .gitignore
+      - run: git add output/
       - uses: stefanzweifel/git-auto-commit-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file_pattern: 'roadmap.json'
+          file_pattern: 'output/*'
           commit_message: "build: generate"
           branch: generate
+          push_options: '--force'
           create_branch: true
           commit_user_name: gnobot
           commit_user_email: actions@github.com
