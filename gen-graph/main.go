@@ -1,10 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"time"
+
+	"github.com/goccy/go-graphviz"
+	"github.com/goccy/go-graphviz/cgraph"
 )
 
 type task struct {
@@ -36,10 +40,54 @@ func main() {
 
 	roadmap := make(map[string]task)
 	for _, t := range tasks {
+		if t.Kind != 1 {
+			continue
+		}
 		roadmap[t.ID] = t
 	}
 
-	fmt.Println(roadmap)
+	g := graphviz.New()
+	graph, err := g.Graph()
+	checkErr(err)
+	graph.SetRankDir("LR")
+	defer func() {
+		checkErr(graph.Close())
+		g.Close()
+	}()
+
+	nodes := make(map[string]*cgraph.Node)
+
+	for _, task := range roadmap {
+		node, err := graph.CreateNode(task.ID)
+		checkErr(err)
+		node.SetLabel(task.Title)
+		node.SetShape("box")
+		node.SetStyle("rounded")
+		nodes[task.ID] = node
+	}
+
+	for _, task := range roadmap {
+		for _, dependentID := range task.IsBlocking {
+			dependent := roadmap[dependentID]
+			name := task.ID + dependent.ID
+			edge, err := graph.CreateEdge(name, nodes[task.ID], nodes[dependent.ID])
+			checkErr(err)
+			_ = edge
+			// edge.SetLabel("blocking")
+		}
+		for _, dependingID := range task.IsDependingOn {
+			depending := roadmap[dependingID]
+			name := depending.ID + task.ID
+			edge, err := graph.CreateEdge(name, nodes[depending.ID], nodes[task.ID])
+			checkErr(err)
+			_ = edge
+			// edge.SetLabel("depending")
+		}
+	}
+
+	var buf bytes.Buffer
+	checkErr(g.Render(graph, "dot", &buf))
+	fmt.Println(buf.String())
 }
 
 func checkErr(err error) {

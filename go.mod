@@ -2,7 +2,10 @@ module github.com/gnolang/roadmap
 
 go 1.20
 
-require moul.io/depviz/v3 v3.16.0
+require (
+	github.com/goccy/go-graphviz v0.1.1
+	moul.io/depviz/v3 v3.16.0
+)
 
 require (
 	github.com/ajg/form v1.5.1 // indirect
@@ -13,6 +16,7 @@ require (
 	github.com/cayleygraph/quad v1.2.4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dennwc/base v1.0.0 // indirect
+	github.com/fogleman/gg v1.3.0 // indirect
 	github.com/go-chi/chi v1.5.4 // indirect
 	github.com/go-chi/render v1.0.2 // indirect
 	github.com/gobuffalo/logger v1.0.6 // indirect
@@ -20,6 +24,7 @@ require (
 	github.com/gobuffalo/packr/v2 v2.8.3 // indirect
 	github.com/gogo/gateway v1.1.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
+	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-github/v30 v30.1.0 // indirect
 	github.com/google/go-querystring v1.0.0 // indirect
@@ -36,6 +41,7 @@ require (
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/peterbourgon/ff/v3 v3.3.0 // indirect
 	github.com/piprate/json-gold v0.3.0 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/pquerna/cachecontrol v0.0.0-20180517163645-1555304b9b35 // indirect
 	github.com/prometheus/client_golang v0.9.3 // indirect
@@ -54,7 +60,8 @@ require (
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
 	go.uber.org/zap v1.24.0 // indirect
-	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 // indirect
+	golang.org/x/crypto v0.7.0 // indirect
+	golang.org/x/image v0.6.0 // indirect
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/oauth2 v0.6.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
