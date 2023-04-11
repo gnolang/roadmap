@@ -21,6 +21,8 @@ jobs:
       - run: go install -v ./gen-graph
 
       - run: make fetch
+        env:
+	  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: make gen-json
       - run: make gen-image
 
