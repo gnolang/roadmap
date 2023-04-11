@@ -16,7 +16,9 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
       - uses: actions/setup-go@v4
+      - uses: ts-graphviz/setup-graphviz@v1
       - run: cd misc/deps; make install
+      - run: go install -v ./gen-graph
 
       - run: make fetch
       - run: make gen-json
