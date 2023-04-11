@@ -3,7 +3,8 @@ name: generate
 on:
   push:
   # TODO: on new issues?
-  # TODO: schedule: - cron: "21 */2 * * *"
+  schedule:
+    - cron: "0 */12 * * *"
 
 jobs:
   generate:
