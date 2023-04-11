@@ -24,7 +24,7 @@ jobs:
       - run: make gen-json
       - run: make gen-image
 
-      - run: mkdir -p output && mv roadmap.* output/
+      - run: mkdir -p output && mv roadmap.* output/ && ls -la output
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         env:
