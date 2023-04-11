@@ -24,11 +24,13 @@ jobs:
       - run: make gen-json
       - run: make gen-image
 
+      - run: mkdir -p output && mv roadmap.* output/
+
       - uses: stefanzweifel/git-auto-commit-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file_pattern: 'roadmap.json'
+          file_pattern: 'output/*'
           commit_message: "build: generate"
           branch: generate
           create_branch: true
