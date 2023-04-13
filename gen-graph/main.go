@@ -1,14 +1,13 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"time"
 
 	"github.com/goccy/go-graphviz"
 	"github.com/goccy/go-graphviz/cgraph"
+	"moul.io/godev"
 )
 
 type task struct {
@@ -59,6 +58,7 @@ func main() {
 
 	for _, task := range roadmap {
 		node, err := graph.CreateNode(task.ID)
+		println(godev.PrettyJSON(task))
 		checkErr(err)
 		node.SetLabel(task.Title)
 		node.SetShape("box")
@@ -85,9 +85,7 @@ func main() {
 		}
 	}
 
-	var buf bytes.Buffer
-	checkErr(g.Render(graph, "dot", &buf))
-	fmt.Println(buf.String())
+	checkErr(g.RenderFilename(graph, "dot", "output/roadmap.dot"))
 }
 
 func checkErr(err error) {
