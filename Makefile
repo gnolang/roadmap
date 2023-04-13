@@ -1,14 +1,11 @@
-all: install fetch gen-json gen-image
-
-install:
-	cd misc/deps; make install
+all: fetch gen-json gen-image
 
 fetch:
-	depviz fetch -github-token=${GITHUB_TOKEN} gnolang/roadmap
+	go run moul.io/depviz/v3/cmd/depviz fetch -github-token=${GITHUB_TOKEN} gnolang/roadmap
 
 gen-json:
 	mkdir -p output
-	depviz gen json gnolang/roadmap > output/roadmap.json
+	go run moul.io/depviz/v3/cmd/depviz gen json gnolang/roadmap > output/roadmap.json
 
 gen-image:
 	go run ./gen-graph > output/roadmap.dot
