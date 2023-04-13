@@ -971,8 +971,6 @@ honnef.co/go/tools v0.0.1-2020.1.3/go.mod h1:X/FiERA/W4tHapMX5mGpAtMSVEeEUOyHaw9
 honnef.co/go/tools v0.0.1-2020.1.4/go.mod h1:X/FiERA/W4tHapMX5mGpAtMSVEeEUOyHaw9vFzvIQ3k=
 moul.io/banner v1.0.1 h1:+WsemGLhj2pOajw2eR5VYjLhOIqs0XhIRYchzTyMLk0=
 moul.io/banner v1.0.1/go.mod h1:XwvIGKkhKRKyN1vIdmR5oaKQLIkMhkMqrsHpS94QzAU=
-moul.io/depviz/v3 v3.16.0 h1:LG4edbXhe0/RKXsRv1D+daM+rBnv7kBIv6cTl7Vt+Po=
-moul.io/depviz/v3 v3.16.0/go.mod h1:znN7rEIkQ3H04FxwunWSwSs8geRX/4p+1zBV7F6Vq7Y=
 moul.io/depviz/v3 v3.17.0 h1:dqGjSL0YPIFw7hAbv9qsItt6YRUsdJNVZ09u655U13s=
 moul.io/depviz/v3 v3.17.0/go.mod h1:znN7rEIkQ3H04FxwunWSwSs8geRX/4p+1zBV7F6Vq7Y=
 moul.io/godev v1.7.0 h1:PgnL7BsCQPPjKwu9V0oxIVm2MyZAHAN2sl0S3+E37U0=
