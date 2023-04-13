@@ -105,7 +105,7 @@ func main() {
 		}
 	}
 
-	checkErr(g.RenderFilename(graph, "dot", "output/roadmap.dot"))
+	checkErr(g.RenderFilename(graph, graphviz.XDOT, "output/roadmap.dot"))
 }
 
 func (t task) LabelExists(label string) bool {
