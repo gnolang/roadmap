@@ -2,17 +2,20 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"fmt"
+	"io/ioutil"
 	"strings"
 	"time"
 
 	"github.com/goccy/go-graphviz"
 	"github.com/goccy/go-graphviz/cgraph"
+	"moul.io/depviz/v3/pkg/dvmodel"
 	"moul.io/godev"
 )
 
-type task struct {
+type task dvmodel.Task
+
+/*type task struct {
 	ID                string    `json:"id,omitempty"`
 	CreatedAt         time.Time `json:"created_at,omitempty"`
 	UpdatedAt         time.Time `json:"updated_at,omitempty"`
@@ -30,21 +33,27 @@ type task struct {
 	IsDependingOn     []string  `json:"is_depending_on,omitempty"`
 	IsBlocking        []string  `json:"is_blocking,omitempty"`
 	IsRelatedWith     []string  `json:"is_related_with,omitempty"`
+}*/
+
+type roadmap struct {
+	Tasks []task `json:"tasks"`
 }
 
 func main() {
 	file, err := ioutil.ReadFile("output/roadmap.json")
 	checkErr(err)
-	var tasks []task
-	err = json.Unmarshal(file, &tasks)
+	var roadmapFile struct {
+		Tasks []task `json:"tasks"`
+	}
+	err = json.Unmarshal(file, &roadmapFile)
 	checkErr(err)
 
 	roadmap := make(map[string]task)
-	for _, t := range tasks {
+	for _, t := range roadmapFile.Tasks {
 		if t.Kind != 1 {
 			continue
 		}
-		roadmap[t.ID] = t
+		roadmap[t.ID.String()] = t
 	}
 
 	g := graphviz.New()
@@ -60,7 +69,7 @@ func main() {
 	nodes := make(map[string]*cgraph.Node)
 
 	for _, task := range roadmap {
-		node, err := graph.CreateNode(task.ID)
+		node, err := graph.CreateNode(task.ID.String())
 		checkErr(err)
 		if task.ID == "https://github.com/gnolang/roadmap/issues/1" {
 			println(godev.PrettyJSON(task))
@@ -69,7 +78,7 @@ func main() {
 		// default
 		// node.SetLabel(fmt.Sprintf("#%s - %s", task.ShortID(), task.Title))
 		node.SetLabel(task.Title)
-		node.SetHref(task.ID)
+		node.SetHref(task.ID.String())
 		node.SetShape("box")
 		node.SetStyle("rounded")
 
@@ -83,22 +92,22 @@ func main() {
 			node.SetFillColor("#eeeeee")
 		}
 
-		nodes[task.ID] = node
+		nodes[task.ID.String()] = node
 	}
 
 	for _, task := range roadmap {
 		for _, dependentID := range task.IsBlocking {
-			dependent := roadmap[dependentID]
-			name := task.ID + dependent.ID
-			edge, err := graph.CreateEdge(name, nodes[task.ID], nodes[dependent.ID])
+			dependent := roadmap[dependentID.String()]
+			name := task.ID.String() + dependent.ID.String()
+			edge, err := graph.CreateEdge(name, nodes[task.ID.String()], nodes[dependent.ID.String()])
 			checkErr(err)
 			_ = edge
 			// edge.SetLabel("blocking")
 		}
 		for _, dependingID := range task.IsDependingOn {
-			depending := roadmap[dependingID]
-			name := depending.ID + task.ID
-			edge, err := graph.CreateEdge(name, nodes[depending.ID], nodes[task.ID])
+			depending := roadmap[dependingID.String()]
+			name := depending.ID.String() + task.ID.String()
+			edge, err := graph.CreateEdge(name, nodes[depending.ID.String()], nodes[task.ID.String()])
 			checkErr(err)
 			_ = edge
 			// edge.SetLabel("depending")
@@ -110,7 +119,7 @@ func main() {
 
 func (t task) LabelExists(label string) bool {
 	for _, l := range t.HasLabel {
-		short := l[strings.LastIndex(l, "/")+1:]
+		short := l.String()[strings.LastIndex(l.String(), "/")+1:]
 		if short == label {
 			return true
 		}
@@ -119,7 +128,7 @@ func (t task) LabelExists(label string) bool {
 }
 
 func (t task) ShortID() string {
-	return t.ID[strings.LastIndex(t.ID, "/")+1:]
+	return t.ID.String()[strings.LastIndex(t.ID.String(), "/")+1:]
 }
 
 func checkErr(err error) {
