@@ -24,10 +24,10 @@ func main() {
 
 	roadmap := make(map[string]*dvmodel.Task)
 	for _, t := range roadmapFile.Tasks {
-		if t.Kind != 1 {
-			continue
+		switch {
+		case t.Kind == dvmodel.Task_Issue:
+			roadmap[t.ID.String()] = t
 		}
-		roadmap[t.ID.String()] = t
 	}
 
 	g := graphviz.New()
