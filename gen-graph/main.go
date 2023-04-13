@@ -35,16 +35,21 @@ type task struct {
 func main() {
 	file, err := ioutil.ReadFile("output/roadmap.json")
 	checkErr(err)
-	var tasks []task
-	err = json.Unmarshal(file, &tasks)
+	var entries []task
+	err = json.Unmarshal(file, &entries)
 	checkErr(err)
 
-	roadmap := make(map[string]task)
-	for _, t := range tasks {
-		if t.Kind != 1 {
-			continue
+	var (
+		tasks      = make(map[string]task)
+		milestones = make(map[string]task)
+	)
+	for _, t := range entries {
+		switch {
+		case t.Kind == 1: // issues
+			tasks[t.ID] = t
+		case t.Kind == 3: // milestones
+			milestones[t.ID] = t
 		}
-		roadmap[t.ID] = t
 	}
 
 	g := graphviz.New()
@@ -59,7 +64,12 @@ func main() {
 
 	nodes := make(map[string]*cgraph.Node)
 
-	for _, task := range roadmap {
+	for _, milestone := range milestones {
+		// TODO: group issues by milestone
+		_ = milestone
+	}
+
+	for _, task := range tasks {
 		node, err := graph.CreateNode(task.ID)
 		checkErr(err)
 		if task.ID == "https://github.com/gnolang/roadmap/issues/1" {
@@ -86,9 +96,9 @@ func main() {
 		nodes[task.ID] = node
 	}
 
-	for _, task := range roadmap {
+	for _, task := range tasks {
 		for _, dependentID := range task.IsBlocking {
-			dependent := roadmap[dependentID]
+			dependent := tasks[dependentID]
 			name := task.ID + dependent.ID
 			edge, err := graph.CreateEdge(name, nodes[task.ID], nodes[dependent.ID])
 			checkErr(err)
@@ -96,7 +106,7 @@ func main() {
 			// edge.SetLabel("blocking")
 		}
 		for _, dependingID := range task.IsDependingOn {
-			depending := roadmap[dependingID]
+			depending := tasks[dependingID]
 			name := depending.ID + task.ID
 			edge, err := graph.CreateEdge(name, nodes[depending.ID], nodes[task.ID])
 			checkErr(err)
