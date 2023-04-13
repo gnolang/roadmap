@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
+	"fmt"
+	"strings"
 	"time"
 
 	"github.com/goccy/go-graphviz"
@@ -49,6 +51,7 @@ func main() {
 	graph, err := g.Graph()
 	checkErr(err)
 	graph.SetRankDir("LR")
+	graph.SetLabel(fmt.Sprintf(`\n\nhttps://github.com/gnolang/roadmap - generated on %s`, time.Now().Format("2006/01/02 15:04")))
 	defer func() {
 		checkErr(graph.Close())
 		g.Close()
@@ -58,11 +61,28 @@ func main() {
 
 	for _, task := range roadmap {
 		node, err := graph.CreateNode(task.ID)
-		println(godev.PrettyJSON(task))
 		checkErr(err)
+		if task.ID == "https://github.com/gnolang/roadmap/issues/1" {
+			println(godev.PrettyJSON(task))
+		}
+
+		// default
+		// node.SetLabel(fmt.Sprintf("#%s - %s", task.ShortID(), task.Title))
 		node.SetLabel(task.Title)
+		node.SetHref(task.ID)
 		node.SetShape("box")
 		node.SetStyle("rounded")
+
+		// exceptions
+		if task.LabelExists("focus") {
+			node.SetStyle("filled,bold,rounded")
+			node.SetFillColor("#ffeeee")
+		}
+		if task.LabelExists("vision") {
+			node.SetStyle("filled,rounded")
+			node.SetFillColor("#eeeeee")
+		}
+
 		nodes[task.ID] = node
 	}
 
@@ -86,6 +106,20 @@ func main() {
 	}
 
 	checkErr(g.RenderFilename(graph, "dot", "output/roadmap.dot"))
+}
+
+func (t task) LabelExists(label string) bool {
+	for _, l := range t.HasLabel {
+		short := l[strings.LastIndex(l, "/")+1:]
+		if short == label {
+			return true
+		}
+	}
+	return false
+}
+
+func (t task) ShortID() string {
+	return t.ID[strings.LastIndex(t.ID, "/")+1:]
 }
 
 func checkErr(err error) {
