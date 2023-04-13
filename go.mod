@@ -5,6 +5,7 @@ go 1.20
 require (
 	github.com/goccy/go-graphviz v0.1.1
 	moul.io/depviz/v3 v3.16.0
+	moul.io/godev v1.7.0
 )
 
 require (

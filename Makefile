@@ -1,13 +1,19 @@
-all: fetch gen-json gen-image
+all: fetch gen-image
 
 fetch:
-	go run moul.io/depviz/v3/cmd/depviz fetch -github-token=${GITHUB_TOKEN} gnolang/roadmap
+	go run moul.io/depviz/v3/cmd/depviz --store-path=output/ fetch -github-token=${GITHUB_TOKEN} gnolang/roadmap
 
-gen-json:
-	mkdir -p output
-	go run moul.io/depviz/v3/cmd/depviz gen json gnolang/roadmap > output/roadmap.json
+output/roadmap.json:
+	go run moul.io/depviz/v3/cmd/depviz --store-path=output/ gen json gnolang/roadmap > $@.tmp
+	@mv $@.tmp $@
 
-gen-image:
-	go run ./gen-graph > output/roadmap.dot
+gen-image: output/roadmap.json
+	go run ./gen-graph
 	dot -Tpng output/roadmap.dot > output/roadmap.png
 	dot -Tsvg output/roadmap.dot > output/roadmap.svg
+
+clean:
+	rm -f output/roadmap.json
+
+fclean:
+	rm -rf output/

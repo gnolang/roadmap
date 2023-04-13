@@ -56,7 +56,7 @@ jobs:
       - run: make fetch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: make gen-json
+      - run: make output/roadmap.json
       - run: make gen-image
 
       - run: git rm -f .gitignore
