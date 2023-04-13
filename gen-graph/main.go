@@ -1,7 +1,6 @@
 package main
 
 import (
-	//"encoding/json"
 	"bytes"
 	"fmt"
 	"io/ioutil"
@@ -15,19 +14,12 @@ import (
 	"moul.io/godev"
 )
 
-type task dvmodel.Task
-
-type roadmap struct {
-	Tasks []task `json:"tasks"`
-}
-
 func main() {
 	file, err := ioutil.ReadFile("output/roadmap.json")
 	checkErr(err)
 	var roadmapFile dvmodel.Batch
 	var u jsonpb.Unmarshaler
 	err = u.Unmarshal(bytes.NewReader(file), &roadmapFile)
-	//err = json.Unmarshal(file, &roadmapFile)
 	checkErr(err)
 
 	roadmap := make(map[string]*dvmodel.Task)
@@ -54,11 +46,10 @@ func main() {
 		node, err := graph.CreateNode(task.ID.String())
 		checkErr(err)
 		if task.ID == "https://github.com/gnolang/roadmap/issues/1" {
-			println(godev.PrettyJSON(task))
+			println(godev.PrettyJSONPB(task))
 		}
 
 		// default
-		// node.SetLabel(fmt.Sprintf("#%s - %s", task.ShortID(), task.Title))
 		node.SetLabel(task.Title)
 		node.SetHref(task.ID.String())
 		node.SetShape("box")
@@ -107,10 +98,6 @@ func taskLabelExists(t *dvmodel.Task, label string) bool {
 		}
 	}
 	return false
-}
-
-func (t task) ShortID() string {
-	return t.ID.String()[strings.LastIndex(t.ID.String(), "/")+1:]
 }
 
 func checkErr(err error) {
