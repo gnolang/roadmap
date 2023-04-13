@@ -1,4 +1,4 @@
-all: fetch gen-json gen-image
+all: fetch gen-image
 
 fetch:
 	go run moul.io/depviz/v3/cmd/depviz --store-path=output/ fetch -github-token=${GITHUB_TOKEN} gnolang/roadmap
