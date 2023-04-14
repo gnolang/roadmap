@@ -2,8 +2,10 @@ package main
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"strings"
 	"time"
 
@@ -15,7 +17,15 @@ import (
 )
 
 func main() {
-	file, err := ioutil.ReadFile("output/roadmap.json")
+	var (
+		inputFile  string
+		outputFile string
+	)
+	flag.StringVar(&inputFile, "i", "output/roadmap.json", "input file (.json)")
+	flag.StringVar(&outputFile, "o", "output/roadmap.dot", "output file (.dot)")
+	flag.Parse()
+
+	file, err := ioutil.ReadFile(inputFile)
 	checkErr(err)
 	var roadmapFile dvmodel.Batch
 	var u jsonpb.Unmarshaler
@@ -71,6 +81,11 @@ func main() {
 	for _, task := range roadmap {
 		for _, dependentID := range task.IsBlocking {
 			dependent := roadmap[dependentID.String()]
+			if dependent == nil {
+				log.Printf("invalid dependent: %q -> %q", task.ID.String(), dependentID)
+				// TODO: create "404" red block
+				continue
+			}
 			name := task.ID.String() + dependent.ID.String()
 			edge, err := graph.CreateEdge(name, nodes[task.ID.String()], nodes[dependent.ID.String()])
 			checkErr(err)
@@ -79,6 +94,11 @@ func main() {
 		}
 		for _, dependingID := range task.IsDependingOn {
 			depending := roadmap[dependingID.String()]
+			if depending == nil {
+				log.Printf("invalid depending: %q -> %q", task.ID.String(), dependingID)
+				// TODO: create "404" red block
+				continue
+			}
 			name := depending.ID.String() + task.ID.String()
 			edge, err := graph.CreateEdge(name, nodes[depending.ID.String()], nodes[task.ID.String()])
 			checkErr(err)
@@ -87,7 +107,7 @@ func main() {
 		}
 	}
 
-	checkErr(g.RenderFilename(graph, graphviz.XDOT, "output/roadmap.dot"))
+	checkErr(g.RenderFilename(graph, graphviz.XDOT, outputFile))
 }
 
 func taskLabelExists(t *dvmodel.Task, label string) bool {

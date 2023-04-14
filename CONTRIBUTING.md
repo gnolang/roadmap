@@ -10,4 +10,4 @@ If you're working on the graph rendering, I recommend focusing solely on the `ge
 
 You can use the following command which offers fast automatic preview (tested on Mac):
 
-    find . | entr -c sh -xec "make gen-image && open output/roadmap.svg".
+    find . | entr -c sh -xec "rm -f output/*.svg; *make gen-image && open output/roadmap.svg".
