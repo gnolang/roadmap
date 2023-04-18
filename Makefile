@@ -40,3 +40,9 @@ output/ecosystem.json: output/indexes.bolt
 
 %.png: %.dot
 	dot -Tpng $< > $@
+
+%-wip.png: %.png
+	# depends on ImageMagick or equivalent
+	wget -qO wip-text.png https://raw.githubusercontent.com/moul/assets/main/wip-text.png
+	composite -dissolve 20% -gravity center wip-text.png $< $@
+

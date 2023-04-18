@@ -59,6 +59,8 @@ jobs:
       - run: make gen-json
       - run: make gen-image
 
+      - run: make gen-wip
+
       - run: git rm -f .gitignore
       - run: git add output/
       - uses: stefanzweifel/git-auto-commit-action@v4
