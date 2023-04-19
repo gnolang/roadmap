@@ -61,8 +61,7 @@ jobs:
 
       - run: make gen-wip
 
-      - run: git rm -f .gitignore
-      - run: git add output/
+      - run: git add -f output/
       - uses: stefanzweifel/git-auto-commit-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
