@@ -1,0 +1,219 @@
+{
+  "tasks": [
+    {
+
+    },
+    {
+      "id": "https://github.com/gnolang/gno/issues/1375",
+      "createdAt": "2023-11-15T04:52:20Z",
+      "updatedAt": "2024-01-17T12:32:44Z",
+      "localId": "gnolang/gno#1375",
+      "kind": "Issue",
+      "title": "[RFC] \u0008Embrace secure signing methods",
+      "description": "Co-authors: @dongwon8247 @adr-sk\r\n\r\n## Background\r\n\r\nCrypto wallets should pursue the highest degree of security and foster proper education on good self-custody practices to protect users from potential threats.\r\n\r\nTo achieve both high security and a quality user experience (UX), we need to explore various key management and signing options such as offline air-gapped accounts, QR-based transaction signing, session-based signing with `std.Session`, and account abstraction tech with Multi-Party Computation (MPC).\r\n\r\nAs a part of this initiative, we have integrated MPC in Adena via Web3Auth, an auth infrastructure provider. At a high level, Web3Auth's MPC \"splits\" a private key into multiple shares, which are each bound to various factors such as a social account, a device, or a backup phrase. Using threshold cryptography, the shares can be used to reconstruct the key in the front end of the wallet app. A typical setup is to create a 2 out of 3 threshold, requiring at least 2 shares to recover the key.\r\n\r\n![Web3Auth Flow](https://web3auth.io/docs/assets/images/tkey-flow-88adde4454242a677741399ba1f3e336.png)\r\n\r\nThis kind of integration has been adopted and popularized by [leading wallets](https://web3auth.io/customers.html) such as Gnosis Safe, Ronin Wallet for Axie Infinity, Binance Wallet, and McDonald's App. As of June 2023, [more than 15M accounts](https://www.bnbchain.org/en/blog/bnb-chain-spotlight-web3auth) were powered by Web3Auth.\r\n\r\nBy allowing a user to bind a share to a Google account on Adena, we provide a friendly login flow that's identical to Web2, while maintaining secure self-custody for users.\r\n\r\nOur next objective is to add support for an air-gapped signing environment by allowing users to broadcast transactions signed in a completely separate environment. The UX might be unfamiliar to most users, but it is the most secure method for key management, which is why we will advocate the use and education of airgap accounts.\r\n\r\n## The Airgap Userflow on Adena\r\n\r\nBelow is the planned airgap user flow on Adena:\r\n\r\n1. The user generates a seed phrase (or a private key) in their own environment with `gnokey`.\r\n\r\n2. The user adds the account to Adena by only entering the account address, essentially creating a watch-only account.\r\n\r\n3. The user creates a `signed.tx` file in their own environment with `gnokey`.\r\n\r\n4. The user transfers the file to the device (via USB, SD Card, or QR Code) on which Adena is installed - This process can be completely air-gapped (offline).\r\n\r\n5. The user uploads the `signed.tx` file to Adena and broadcasts it to the blockchain.\r\n\r\nBelow is the UI in the works.\r\n\r\n\r\n![Image](https://github.com/gnolang/gno/assets/105615982/852ba733-2f82-4efe-86b6-ec43e5f009dc)\r\n\r\n\r\nWe're also considering adding a feature to create an unsigned transaction file from Adena. Creating complex transactions such as interactions with DeFi apps and DAOs or building chained transactions in a local development setting can be quite inconvenient and difficult. Having Adena automate this process will improve the UX.\r\n\r\n\r\n## Ideas to Improve the Usability of QR Codes\r\n\r\n**A Standard for Data Transmission via QR Codes**\r\nA standardized format for exchanging data with QR codes between **offline signers and watch-only wallets is essential** to encourage more wallets to support airgap accounts. The simplest approach seems to be adopting and encouraging the community to use an existing standard like the [EIP-4527](https://eips.ethereum.org/EIPS/eip-4527).\r\n\r\n**Generating QR Codes With ASCII**\r\nA command-line utility like `qrencode` that generates QR codes for signed transaction data in ASCII Art could essentially turn a custom airgapped device into a QR-based Hardware Wallet. [Here](https://www.linux-magazine.com/var/linux_magazin/storage/images/media/linux-magazine-eng-us/images/f02-qrcode/584733-1-eng-US/F02-qrcode_reference.jpg) is a visual example of this. Implementing a similar tool in Gno could foster wider adoption of airgap accounts by removing the need to use a flash drive or an SD card to transfer data from or to an air-gapped environment.\r\n\r\nIt would be nice to have feedback on our airgap work and ideas on QR codes from the community.\r\n\r\nAdditionally, there was a suggestion from @jaekwon @moul to adopt `std.Session`, a concept in which the main account delegates signing permission, divided by sessions, to subaccounts. Combined with the airgap support, this could be a great way to ensure security and usability for Web3 wallets. Can you please elaborate more on this concept and how it could be implemented? It would be greatly helpful.",
+      "driver": "GitHub",
+      "state": "Open",
+      "numComments": 2,
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/dongwon8247",
+      "hasOwner": "https://github.com/gnolang/gno",
+      "hasAssignee": [
+        "https://github.com/kristovatlas",
+        "https://github.com/dongwon8247",
+        "https://github.com/adr-sk"
+      ],
+      "hasLabel": [
+        "https://github.com/gnolang/gno/labels/:question:  question",
+        "https://github.com/gnolang/gno/labels/:seedling:  feature"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/gno/issues/1509",
+      "createdAt": "2024-01-10T09:04:26Z",
+      "updatedAt": "2024-02-23T08:36:03Z",
+      "localId": "gnolang/gno#1509",
+      "kind": "Issue",
+      "title": "gnodev time.Now() values are not preserved on reload",
+      "description": "## In gnodev, preserve time.Now() values on reload\r\n\r\n### Description\r\n\r\nIn gnodev, the reload operation replays all the transactions. In general this lets the realm functions restore the state. But if some realm functions use `time.Now()` then this returns the (arbitrary) time of reload, not the time of the original transaction. Therefore, reload does not actually restore the state. \r\n### Your environment\r\n\r\n* macOS Ventura 13.6.3\r\n* Go 1.20.7\r\n* Latest gnolang/gno as of posting\r\n* Latest commit: c6097cd83326cae0262b20b1fd7dff9e068caf75\r\n\r\n### Steps to reproduce\r\n\r\n* Set up the [test1 key for gnokey](https://github.com/gnolang/gno/blob/master/gno.land/cmd/gnofaucet/README.md)\r\n* Install gnodev\r\n* Start gnodev\r\n* Register the test1 user, create a board and post with `CreateThread` as follows:\r\n```\r\ngnokey maketx call -pkgpath \"gno.land/r/demo/users\" -func \"Register\" -args \"\" -args \"test_1\" -args \"Profile description\" -gas-fee \"10000000ugnot\" -gas-wanted \"2000000\" -send \"200000000ugnot\" -broadcast -chainid tendermint_test -remote 127.0.0.1:36657 test1\r\ngnokey maketx call -pkgpath \"gno.land/r/demo/boards\" -func \"CreateBoard\" -args \"myboard\" -gas-fee \"1000000ugnot\" -gas-wanted \"5000000\" -broadcast -chainid tendermint_test -remote 127.0.0.1:36657 test1\r\ngnokey maketx call -pkgpath \"gno.land/r/demo/boards\" -func \"CreateThread\" -gas-fee 1000000ugnot -gas-wanted 5000000 -broadcast -chainid tendermint_test -args \"1\" -args \" mytitle\" -args \"post at \u003ccurrent UTC time\u003e\" -remote \"127.0.0.1:36657\" test1\r\n```\r\n* View the board at http://127.0.0.1:8888/r/demo/boards:myboard . Note the timestamp on the message.\r\n* Wait 5 minutes. In gnodev, press R to reload\r\n\r\n### Expected behaviour\r\n\r\nThe boards realm [uses `time.Now()`](https://github.com/gfanton/gno/blob/6cabad4f9b09bf4a1e03b27fbc0d666467f2ced6/examples/gno.land/r/demo/boards/post.gno#L52) for the displayed post time.  Reload should restore the realm state including timestamps from `time.Now()`\r\n\r\n### Actual behaviour\r\n\r\nThe timestamps of all message have the time of reload, erasing important information. This is because to reload gnodev resends the transactions where the block time is the current time of reload. This same timestamp is returned by every call to `time.Now()` .\r\n\r\n(Related, the boards realm in testnet3 was built by replaying transactions, similarly to gnodev reload. The original message timestamps are erased and are set to the same value \"2023-08-18 11:44am UTC\". https://test3.gno.land/r/demo/boards:testboard .) \r\n\r\n### Proposed solution\r\n\r\nOne possible solution: The transaction processing code should have an option to specify the block time. Instead of using a high-level broadcast during replay, gnodev should call the lower-level transaction processing code and supply the correct timestamp of the original transaction. This will be used by `time.Now()`.\r\n\r\nHere are the message times before reload:\r\n![Screenshot 2024-01-10 at 10 15 01](https://github.com/gnolang/gno/assets/1999543/8d227bbf-8179-47f0-abba-45a39f1511bd)\r\n\r\nHere is where all timestamps are reset after reload:\r\n![Screenshot 2024-01-10 at 10 17 17](https://github.com/gnolang/gno/assets/1999543/624fb6e4-605c-4a6c-b73b-5c1d54be5a90)\r\n\r\n\r\n### ⚠️ Risks and impact if not fixed\r\n\r\nA realm developer can't use gnodev with any realm that relies on `time.Now()`. For example:\r\n* Timestamps on posted messages, or any time-based calculations like \"number if messages in the last day\".\r\n* There are hacks to avoid using `time.Now()` but they introduce security risks of not having reliable timestamps from the transaction.\r\n* The long-term technique to do realm versioning may also solve this problem by replaying transactions, and so this also needs to be addressed in this case.\r\n",
+      "driver": "GitHub",
+      "state": "Open",
+      "numComments": 1,
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/jefft0",
+      "hasOwner": "https://github.com/gnolang/gno",
+      "hasAssignee": [
+        "https://github.com/gfanton"
+      ],
+      "hasLabel": [
+        "https://github.com/gnolang/gno/labels/🐞 bug"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/gno/issues/2025",
+      "createdAt": "2024-05-03T08:54:08Z",
+      "updatedAt": "2024-10-16T12:50:56Z",
+      "localId": "gnolang/gno#2025",
+      "kind": "Issue",
+      "title": "Clarify gRPC and Amino",
+      "description": "I believe it's time to clarify the targets of this repository in relation to gRPC and amino.\r\n\r\n## Context\r\n\r\n- Amino is compatible with some gRPC features, providing more limited functionality, which we currently embrace internally.\r\n- Using amino allows independence from gRPC and protobuf stack, reducing reliance on external tools and services.\r\n-  While protobuf is not prohibited, it could be encouraged outside the main repository, especially in clients, alongside amino for those using languages like Go.\r\n\r\n## Proposals\r\n\r\n- Update Amino's README with current information and provide clearer details on the goals and non-goals.\r\n-  The main repository should solely rely on amino as the protocol, simplifying dependencies to just \"go\" for building, testing, and publishing. Clearly state it and the constraints in CONTRIBUTING.md.\r\n- Automate `.proto` file generation through CI for easier access. Centralize these files in a dedicated folder in the main repo or a separate repo. Set up dedicated repositories for each supported languages using `protoc-gen-` to streamline new releases and enable extending generated clients with extra helpers. I suggest planning this and postponing it for later, except for the .proto generation part.\r\n-  Create a documentation page on \"interacting with the gRPC API as a client,\" linking to practical examples like those from @gnolang/berty, cc @jefft0 @D4ryl00 @iuricmp @costinberty. #2026\r\n\r\nRelated to issue #620",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/gno",
+      "hasMilestone": "https://github.com/gnolang/gno/milestone/12",
+      "hasLabel": [
+        "https://github.com/gnolang/gno/labels/:book:  documentation",
+        "https://github.com/gnolang/gno/labels/help wanted"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/gno/issues/407",
+      "createdAt": "2022-12-01T16:23:06Z",
+      "updatedAt": "2024-10-16T13:11:34Z",
+      "localId": "gnolang/gno#407",
+      "kind": "Issue",
+      "title": "GOR — Evaluation DAO",
+      "description": "_Note: this issue will be updated to keep track of changes in rules._\r\n\r\n## Context\r\n\r\nRelated slides:\r\n- What makes a (good) contribution? https://gnolang.github.io/workshops/presentations/2023-06-06--buidl-asia--manfred/presentations.slide.html#4\r\n- What is the Evaluation DAO? https://gnolang.github.io/workshops/presentations/2023-06-06--buidl-asia--manfred/presentations.slide.html#5\r\n\r\nPart of ContribursDAO/WorxDAO (#872)\r\n\r\n## Problem Description\r\n\r\nIn order to ensure a fair and transparent distribution of rewards in the Game of Realms competition, an Evaluation DAO is needed. The Evaluation DAO will evaluate contributions during phase two of Game of Realms and attribute rewards accordingly. Using a DAO will allow us to scale the review process and let members vote on the best contributions for the platform.\r\n\r\nImplementation of the Evaluation DAO is the only step the New Tendermint core team must approve because of its crucial role in the competition and the platform's future. Once the DAO is in place, DAO members will collectively review some previous and all further contributions.\r\n\r\nImportant features:\r\n\r\n- people (anyone?) can submit a contribution for review\r\n- the DAO can review contributions and decide\r\n- existing DAO members can invite new members to join\r\n- least authority security design\r\n\r\n## What we look for in the submissions / suggestion on what could work for addressing the challenge\r\n\r\n- help clarifying this issue, by pointing out what’s not clear (#540)\r\n- retrospectives and investigations into case studies (#540)\r\n- human specs — definitions, rules, examples (#540)\r\n- technical specs and interfaces\r\n- implementation\r\n- documentation\r\n- bootstrapping plan\r\n\r\n## What wins points\r\n\r\n- notable contributions\r\n- code modularity\r\n- collaborative mindset",
+      "driver": "GitHub",
+      "state": "Open",
+      "numComments": 6,
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/gno",
+      "hasLabel": [
+        "https://github.com/gnolang/gno/labels/🗺️good first issue🗺️",
+        "https://github.com/gnolang/gno/labels/tokenomics",
+        "https://github.com/gnolang/gno/labels/⚔️🤝 Game of Realms 🤝⚔️",
+        "https://github.com/gnolang/gno/labels/help wanted"
+      ],
+      "isRelatedWith": [
+        "https://github.com/"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/1",
+      "createdAt": "2023-03-06T20:08:19Z",
+      "updatedAt": "2023-04-13T08:01:35Z",
+      "localId": "gnolang/roadmap#1",
+      "kind": "Issue",
+      "title": "Launch Gno.land mainnet",
+      "description": "Depends on #3 \r\nDepends on #2\r\nBlocks #4 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasMilestone": "https://github.com/gnolang/roadmap/milestone/1",
+      "hasAssignee": [
+        "https://github.com/moul"
+      ],
+      "hasLabel": [
+        "https://github.com/gnolang/roadmap/labels/focus"
+      ],
+      "isDependingOn": [
+        "https://github.com/gnolang/roadmap/issues/2",
+        "https://github.com/gnolang/roadmap/issues/3"
+      ],
+      "isBlocking": [
+        "https://github.com/gnolang/roadmap/issues/4"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/11",
+      "createdAt": "2023-04-03T09:40:04Z",
+      "updatedAt": "2023-04-15T07:08:06Z",
+      "localId": "gnolang/roadmap#11",
+      "kind": "Issue",
+      "title": "Proof-of-Contributions MVP",
+      "description": "Blocks #1 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasMilestone": "https://github.com/gnolang/roadmap/milestone/1",
+      "hasAssignee": [
+        "https://github.com/moul"
+      ],
+      "isBlocking": [
+        "https://github.com/gnolang/roadmap/issues/1"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/3",
+      "createdAt": "2023-03-06T20:08:43Z",
+      "updatedAt": "2023-04-20T07:30:09Z",
+      "localId": "gnolang/roadmap#3",
+      "kind": "Issue",
+      "title": "Tendermint2 MVP is finished",
+      "description": "Tendermint2 needs minimal features, stable architecture, and secure implementation with auditing.\r\n\r\nBlocks #1 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasMilestone": "https://github.com/gnolang/roadmap/milestone/1",
+      "hasAssignee": [
+        "https://github.com/jaekwon"
+      ],
+      "isBlocking": [
+        "https://github.com/gnolang/roadmap/issues/1"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/30",
+      "createdAt": "2023-04-20T07:10:24Z",
+      "updatedAt": "2023-04-20T07:42:22Z",
+      "localId": "gnolang/roadmap#30",
+      "kind": "Issue",
+      "title": "GnoVM extensions, IBCx",
+      "description": "After IBC1, we can start thinking about extending GnoVM features to support more cases that can’t be done purely in Go/Gno or using IBC.\r\n\r\n\r\nDepends on #4 \r\n",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "isDependingOn": [
+        "https://github.com/gnolang/roadmap/issues/4"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/4",
+      "createdAt": "2023-03-06T22:45:22Z",
+      "updatedAt": "2023-04-03T09:32:56Z",
+      "localId": "gnolang/roadmap#4",
+      "kind": "Issue",
+      "title": "IBC1 on Gno.land",
+      "description": "Depends on #1 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasAssignee": [
+        "https://github.com/jaekwon"
+      ],
+      "isDependingOn": [
+        "https://github.com/gnolang/roadmap/issues/1"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/6",
+      "createdAt": "2023-04-03T08:32:43Z",
+      "updatedAt": "2023-04-20T07:31:00Z",
+      "localId": "gnolang/roadmap#6",
+      "kind": "Issue",
+      "title": "Solid and straightforward roadmap/vision",
+      "description": "* [ ] Draw the initial roadmap in this repo (@moul, @jaekwon).\r\n* [x] Use DepViz to maintain a visual roadmap automatically. (see #DepViz) section below.\r\n\r\n# Content\r\n\r\nTo ensure clarity of purpose without limiting our options, we must prioritize facts and establish a clear focus. At the same time, we should have visionary goals that enable people to envision the next steps.\r\n\r\n# DepViz\r\n\r\n* [x] Use a privileged token to generate an issues file, and maintain a dedicated branch for commits.\r\n* [x] Automate the process with CI to keep the file updated\r\n* [x] Commit various graphical output options to the repo for users to choose from.\r\n* [ ] Create clickable DepViz output.\r\n* [ ] Create DepViz bot for issue comments, updating with relationship table or image for easy project exploration.\r\n* [ ] Extend DepViz config to main monorepo and sub-repositories.\r\n",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasAssignee": [
+        "https://github.com/moul"
+      ]
+    }
+  ]
+}
