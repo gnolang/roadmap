@@ -1,0 +1,351 @@
+{
+  "tasks": [
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/1",
+      "createdAt": "2023-03-06T20:08:19Z",
+      "updatedAt": "2023-04-13T08:01:35Z",
+      "localId": "gnolang/roadmap#1",
+      "kind": "Issue",
+      "title": "Launch Gno.land mainnet",
+      "description": "Depends on #3 \r\nDepends on #2\r\nBlocks #4 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasMilestone": "https://github.com/gnolang/roadmap/milestone/1",
+      "hasAssignee": [
+        "https://github.com/moul"
+      ],
+      "hasLabel": [
+        "https://github.com/gnolang/roadmap/labels/focus"
+      ],
+      "isDependingOn": [
+        "https://github.com/gnolang/roadmap/issues/2",
+        "https://github.com/gnolang/roadmap/issues/3"
+      ],
+      "isBlocking": [
+        "https://github.com/gnolang/roadmap/issues/4"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/10",
+      "createdAt": "2023-04-03T09:28:40Z",
+      "updatedAt": "2023-04-20T07:46:02Z",
+      "localId": "gnolang/roadmap#10",
+      "kind": "Issue",
+      "title": "VM-agnostic Interchain explorations",
+      "description": "Extended cross-chain interoperability through VM-agnostic serialization formats for language-independent communication.\r\n\r\nDepends on #30",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasAssignee": [
+        "https://github.com/jaekwon"
+      ],
+      "isDependingOn": [
+        "https://github.com/gnolang/roadmap/issues/30"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/11",
+      "createdAt": "2023-04-03T09:40:04Z",
+      "updatedAt": "2023-04-15T07:08:06Z",
+      "localId": "gnolang/roadmap#11",
+      "kind": "Issue",
+      "title": "Proof-of-Contributions MVP",
+      "description": "Blocks #1 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasMilestone": "https://github.com/gnolang/roadmap/milestone/1",
+      "hasAssignee": [
+        "https://github.com/moul"
+      ],
+      "isBlocking": [
+        "https://github.com/gnolang/roadmap/issues/1"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/12",
+      "createdAt": "2023-04-03T09:40:20Z",
+      "updatedAt": "2024-01-16T13:12:44Z",
+      "localId": "gnolang/roadmap#12",
+      "kind": "Issue",
+      "title": "GoR: Evaluation DAO MVP",
+      "description": "Blocks #11 \r\n\r\n- [ ] Depends on https://github.com/gnolang/gno/issues/407\r\n- [ ] Depends on https://github.com/gnolang/gno/issues/xxx",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasMilestone": "https://github.com/gnolang/roadmap/milestone/1",
+      "hasAssignee": [
+        "https://github.com/moul"
+      ],
+      "isBlocking": [
+        "https://github.com/gnolang/roadmap/issues/11"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/2",
+      "createdAt": "2023-03-06T20:08:33Z",
+      "updatedAt": "2023-04-20T07:11:58Z",
+      "localId": "gnolang/roadmap#2",
+      "kind": "Issue",
+      "title": "GnoVM MVP is finished",
+      "description": "Type-safety first. No dynamism or fancy features (see #30).\r\n\r\nBlocks #1 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasMilestone": "https://github.com/gnolang/roadmap/milestone/1",
+      "hasAssignee": [
+        "https://github.com/moul"
+      ],
+      "isBlocking": [
+        "https://github.com/gnolang/roadmap/issues/1"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/3",
+      "createdAt": "2023-03-06T20:08:43Z",
+      "updatedAt": "2023-04-20T07:30:09Z",
+      "localId": "gnolang/roadmap#3",
+      "kind": "Issue",
+      "title": "Tendermint2 MVP is finished",
+      "description": "Tendermint2 needs minimal features, stable architecture, and secure implementation with auditing.\r\n\r\nBlocks #1 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasMilestone": "https://github.com/gnolang/roadmap/milestone/1",
+      "hasAssignee": [
+        "https://github.com/jaekwon"
+      ],
+      "isBlocking": [
+        "https://github.com/gnolang/roadmap/issues/1"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/30",
+      "createdAt": "2023-04-20T07:10:24Z",
+      "updatedAt": "2023-04-20T07:42:22Z",
+      "localId": "gnolang/roadmap#30",
+      "kind": "Issue",
+      "title": "GnoVM extensions, IBCx",
+      "description": "After IBC1, we can start thinking about extending GnoVM features to support more cases that can’t be done purely in Go/Gno or using IBC.\r\n\r\n\r\nDepends on #4 \r\n",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "isDependingOn": [
+        "https://github.com/gnolang/roadmap/issues/4"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/31",
+      "createdAt": "2023-04-20T07:32:03Z",
+      "updatedAt": "2023-04-20T07:41:24Z",
+      "localId": "gnolang/roadmap#31",
+      "kind": "Issue",
+      "title": "GoR: Governance modules MvP",
+      "description": "Blocks #11 \r\nDepends on https://github.com/gnolang/gno/issues/409",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "isDependingOn": [
+        "https://github.com/gnolang/gno/issues/409"
+      ],
+      "isBlocking": [
+        "https://github.com/gnolang/roadmap/issues/11"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/32",
+      "createdAt": "2023-04-20T07:33:33Z",
+      "updatedAt": "2023-04-20T07:41:58Z",
+      "localId": "gnolang/roadmap#32",
+      "kind": "Issue",
+      "title": "GoR: Robust documentation and tutorials",
+      "description": "Blocks #1 \r\nDepends on https://github.com/gnolang/gno/issues/408",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "isDependingOn": [
+        "https://github.com/gnolang/gno/issues/408"
+      ],
+      "isBlocking": [
+        "https://github.com/gnolang/roadmap/issues/1"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/33",
+      "createdAt": "2023-06-19T16:56:30Z",
+      "updatedAt": "2023-06-21T12:06:05Z",
+      "localId": "gnolang/roadmap#33",
+      "kind": "Issue",
+      "title": "Strong stdlibs",
+      "description": "Blocks #2 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "isBlocking": [
+        "https://github.com/gnolang/roadmap/issues/2"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/4",
+      "createdAt": "2023-03-06T22:45:22Z",
+      "updatedAt": "2023-04-03T09:32:56Z",
+      "localId": "gnolang/roadmap#4",
+      "kind": "Issue",
+      "title": "IBC1 on Gno.land",
+      "description": "Depends on #1 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasAssignee": [
+        "https://github.com/jaekwon"
+      ],
+      "isDependingOn": [
+        "https://github.com/gnolang/roadmap/issues/1"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/5",
+      "createdAt": "2023-03-06T22:45:34Z",
+      "updatedAt": "2023-04-03T09:33:02Z",
+      "localId": "gnolang/roadmap#5",
+      "kind": "Issue",
+      "title": "ICSv1 on Gno.land",
+      "description": "Depends on #4 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasAssignee": [
+        "https://github.com/jaekwon"
+      ],
+      "isDependingOn": [
+        "https://github.com/gnolang/roadmap/issues/4"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/6",
+      "createdAt": "2023-04-03T08:32:43Z",
+      "updatedAt": "2023-04-20T07:31:00Z",
+      "localId": "gnolang/roadmap#6",
+      "kind": "Issue",
+      "title": "Solid and straightforward roadmap/vision",
+      "description": "* [ ] Draw the initial roadmap in this repo (@moul, @jaekwon).\r\n* [x] Use DepViz to maintain a visual roadmap automatically. (see #DepViz) section below.\r\n\r\n# Content\r\n\r\nTo ensure clarity of purpose without limiting our options, we must prioritize facts and establish a clear focus. At the same time, we should have visionary goals that enable people to envision the next steps.\r\n\r\n# DepViz\r\n\r\n* [x] Use a privileged token to generate an issues file, and maintain a dedicated branch for commits.\r\n* [x] Automate the process with CI to keep the file updated\r\n* [x] Commit various graphical output options to the repo for users to choose from.\r\n* [ ] Create clickable DepViz output.\r\n* [ ] Create DepViz bot for issue comments, updating with relationship table or image for easy project exploration.\r\n* [ ] Extend DepViz config to main monorepo and sub-repositories.\r\n",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasAssignee": [
+        "https://github.com/moul"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/7",
+      "createdAt": "2023-04-03T08:34:51Z",
+      "updatedAt": "2023-04-03T09:32:41Z",
+      "localId": "gnolang/roadmap#7",
+      "kind": "Issue",
+      "title": "Contributors' DAO leads the project",
+      "description": "Depends on #6 \r\nRelated with #1 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasAssignee": [
+        "https://github.com/jaekwon"
+      ],
+      "isDependingOn": [
+        "https://github.com/gnolang/roadmap/issues/6"
+      ],
+      "isRelatedWith": [
+        "https://github.com/gnolang/roadmap/issues/1"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/8",
+      "createdAt": "2023-04-03T08:36:16Z",
+      "updatedAt": "2023-04-15T07:06:54Z",
+      "localId": "gnolang/roadmap#8",
+      "kind": "Issue",
+      "title": "Gno.land is designed for longevity",
+      "description": "Depends on #7 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasAssignee": [
+        "https://github.com/moul"
+      ],
+      "hasLabel": [
+        "https://github.com/gnolang/roadmap/labels/vision"
+      ],
+      "isDependingOn": [
+        "https://github.com/gnolang/roadmap/issues/7"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/issues/9",
+      "createdAt": "2023-04-03T08:37:57Z",
+      "updatedAt": "2023-04-20T07:48:30Z",
+      "localId": "gnolang/roadmap#9",
+      "kind": "Issue",
+      "title": "Tendermint2 is stable, versatile and fully independent from Gno",
+      "description": "Tendermint2's stability and versatility make it an ideal platform for multiple use cases without requiring a fork.\r\n\r\nTendermint2 is independent from Gno, with its own roadmap and governance.\r\n\r\nDepends on #1 \r\nBlocks #8 ",
+      "driver": "GitHub",
+      "state": "Open",
+      "estimatedDuration": "undefined",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap",
+      "hasAssignee": [
+        "https://github.com/jaekwon"
+      ],
+      "hasLabel": [
+        "https://github.com/gnolang/roadmap/labels/vision"
+      ],
+      "isDependingOn": [
+        "https://github.com/gnolang/roadmap/issues/1"
+      ],
+      "isBlocking": [
+        "https://github.com/gnolang/roadmap/issues/8"
+      ]
+    },
+    {
+      "id": "https://github.com/gnolang/roadmap/milestone/1",
+      "createdAt": "2023-04-13T08:01:35Z",
+      "updatedAt": "2023-04-15T07:08:06Z",
+      "localId": "gnolang/roadmap/milestone/1",
+      "kind": "Milestone",
+      "title": "🎯 Focus",
+      "driver": "GitHub",
+      "state": "Open",
+      "hasAuthor": "https://github.com/moul",
+      "hasOwner": "https://github.com/gnolang/roadmap"
+    }
+  ]
+}
